@@ -1,13 +1,36 @@
-﻿@using Microsoft.EntityFrameworkCore.Metadata.Internal
+﻿@model List<TestTask.DTO.CatalogDTO>
 @{
     ViewData["Title"] = "Home Page";
 }
 
 
-<div class="text-center">
-    <h2>"Folder" - @Model.CurrentCatalog.Name</h2>
-        @foreach (var childDir in @Model.ChildDirectories)
-        {
-            <a asp-controller="Catalog" asp-action="GetCatalogById" asp-route-id="@childDir.Id">@childDir.Name</a>
-        }
+<div class="text-left">
+    <button>import folder from json</button>
+    @foreach (var item in @Model)
+    {
+        <div class="item">
+            <h2>Folder - @item.CurrentCatalog.Name:</h2>
+            @if (@item.ChildCatalogs != null)
+            {
+                <h4>Sub Folders:</h4>
+                <ul>
+                    @foreach (var childDir in item.ChildCatalogs)
+                    {
+                        <li>
+                            <a asp-controller="Catalog"
+                               asp-action="GetCatalogById"
+                               asp-route-id="@childDir.Id">
+                                @childDir.Name
+                            </a>
+                        </li>
+                    }
+                </ul>
+            }
+             <a asp-controller="Catalog"
+                            asp-action="ExportFolderToJson"
+                            asp-route-parrentId="@item.CurrentCatalog.Id">
+                        export this folder to json
+                    </a>
+        </div>
+    }
 </div>

@@ -7,9 +7,3 @@ public class Catalog
     public string? ParentId { get; set; } 
     public string[]? ChildDirectoriesId { get; set; }
 }
-public class CatalogForView
-{
-    public Catalog CurrentCatalog { get; set; }
-    public Catalog? ParrentCatalog { get; set; }
-    public Catalog[]? ChildDirectories { get; set; }
-}

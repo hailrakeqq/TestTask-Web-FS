@@ -1,24 +1,43 @@
-@model CatalogForView
-
+@model TestTask.DTO.CatalogDTO
 @{
     ViewBag.Title = "title";
     Layout = "_Layout";
 }
 
-<div class="text-center">
-    @if (@Model.ParrentCatalog != null)
-    {
-        <a asp-controller="Catalog" asp-action="GetCatalogById" asp-route-id="@Model.ParrentCatalog.Id">
-            @Model.ParrentCatalog.Name
-        </a>
-    }
-
-    <h2>"Folder" - @Model.CurrentCatalog.Name</h2>
-    @if (@Model.ChildDirectories != null)
-    {
-        @foreach (var childDir in @Model.ChildDirectories)
+<div class="text-left">
+    <button>import folder from json</button>
+    <div class="item">
+        @if (Model.ParrentCatalog != null)
         {
-            <a asp-controller="Catalog" asp-action="GetCatalogById" asp-route-id="@childDir.Id">@childDir.Name</a>
+            <a asp-controller="Catalog"
+               asp-action="GetCatalogById"
+               asp-route-id="@Model.ParrentCatalog.Id">
+                @Model.ParrentCatalog.Name
+            </a>
         }
-    }
+
+        <h2>Folder - @Model.CurrentCatalog.Name:</h2>
+
+        @if (Model.ChildCatalogs != null)
+        {
+            <h4>Sub Folders:</h4>
+            <ul>
+                @foreach (var childDir in Model.ChildCatalogs)
+                {
+                    <li>
+                        <a asp-controller="Catalog"
+                           asp-action="GetCatalogById"
+                           asp-route-id="@childDir.Id">
+                            @childDir.Name
+                        </a>
+                    </li>
+                }
+            </ul>
+        }
+        <a asp-controller="Catalog"
+                asp-action="ExportFolderToJson"
+                asp-route-parrentId="@Model.ParrentCatalog.Id">
+            export this folder to json
+        </a>
+    </div>
 </div>

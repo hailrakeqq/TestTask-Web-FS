@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
+using TestTask.DTO;
 using TestTask.Models;
 using TestTask.Repository;
 
@@ -12,9 +14,29 @@ public class CatalogServices : ICatalogRepository
         _appDBContext = appDBContext;
     }
 
+    public Catalog[] GetChildCatalogs(Catalog catalog)
+    {
+        if (catalog?.ChildDirectoriesId == null) return Enumerable.Empty<Catalog>().ToArray();
+
+        return catalog.ChildDirectoriesId.Select(id => GetCatalogById(id)).ToArray();
+    }
+
     public Catalog[] GetParentCatalogs()
     {
         return _appDBContext.catalogs.Where(c => c.ParentId == null).ToArray();
+    }
+
+    public string SerializeCatalog(Catalog catalog)
+    {
+        //TODO: complete serialize and return json for user
+        string json = JsonConvert.SerializeObject(new
+        {
+            catalog.Id,
+            catalog.Name,
+            catalog.ParentId,
+            ChildCatalogs = catalog.ChildDirectoriesId.Select(c => SerializeCatalog(GetCatalogById(c)))
+        });
+        return json;
     }
 
     public Catalog GetCatalogById(string id)

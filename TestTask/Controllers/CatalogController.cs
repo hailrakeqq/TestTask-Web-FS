@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using TestTask.DTO;
 using TestTask.Models;
 using TestTask.Services;
 
@@ -11,37 +12,38 @@ namespace TestTask.Controllers
         {
             _catalogServices = catalogServices;
         }
+        
         public IActionResult Index()
         {
-            var mainCatalog = _catalogServices.GetParentCatalogs().FirstOrDefault();
-            var mainCatalogChild = new Catalog[mainCatalog.ChildDirectoriesId.Length];
-              
-            for (int i = 0; i < mainCatalogChild.Length; i++)
-                mainCatalogChild[i] = _catalogServices.GetCatalogById(mainCatalog.ChildDirectoriesId[i]);
-                
-            return View(new CatalogForView { CurrentCatalog = mainCatalog, ChildDirectories = mainCatalogChild});
+            var catalogDTOFromToSend = new List<CatalogDTO>();
+            var mainCatalogs = _catalogServices.GetParentCatalogs();
+            
+            foreach (var catalog in mainCatalogs)
+            {
+                catalogDTOFromToSend.Add(
+                    new CatalogDTO{CurrentCatalog = catalog,
+                    ChildCatalogs = _catalogServices.GetChildCatalogs(catalog)}
+                    );    
+            }
+            
+            return View(catalogDTOFromToSend);
         }
         
         public IActionResult GetCatalogById(string id)
         {
             var mainCatalog = _catalogServices.GetCatalogById(id);
-            Catalog[] mainCatalogChild = null;
-            if (mainCatalog.ChildDirectoriesId != null)
-            {
-                mainCatalogChild = new Catalog[mainCatalog.ChildDirectoriesId.Length];
-                
-                for (int i = 0; i < mainCatalogChild.Length; i++)
-                    mainCatalogChild[i] = _catalogServices.GetCatalogById(mainCatalog.ChildDirectoriesId[i]);
-            }
-            
-            var thisParrentCatalog = _catalogServices.GetCatalogById(mainCatalog.ParentId);
 
-            return View(new CatalogForView
+            return View(new CatalogDTO()
             {
-                CurrentCatalog = mainCatalog,
-                ParrentCatalog = thisParrentCatalog,
-                ChildDirectories = mainCatalogChild
+                CurrentCatalog = mainCatalog, 
+                ChildCatalogs = _catalogServices.GetChildCatalogs(mainCatalog),
+                ParrentCatalog = _catalogServices.GetCatalogById(mainCatalog.ParentId)
             });
+        }
+
+        public IActionResult ExportFolderToJson(string parrentId)
+        {
+            return Ok(_catalogServices.SerializeCatalog(_catalogServices.GetCatalogById(parrentId)));
         }
 
         public IActionResult CreateTest()
