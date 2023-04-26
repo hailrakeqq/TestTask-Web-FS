@@ -1,7 +1,13 @@
-﻿@{
+﻿@using Microsoft.EntityFrameworkCore.Metadata.Internal
+@{
     ViewData["Title"] = "Home Page";
 }
 
+
 <div class="text-center">
-   
+    <h2>"Folder" - @Model.CurrentCatalog.Name</h2>
+        @foreach (var childDir in @Model.ChildDirectories)
+        {
+            <a asp-controller="Catalog" asp-action="GetCatalogById" asp-route-id="@childDir.Id">@childDir.Name</a>
+        }
 </div>

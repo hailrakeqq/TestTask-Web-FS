@@ -1,0 +1,24 @@
+@model CatalogForView
+
+@{
+    ViewBag.Title = "title";
+    Layout = "_Layout";
+}
+
+<div class="text-center">
+    @if (@Model.ParrentCatalog != null)
+    {
+        <a asp-controller="Catalog" asp-action="GetCatalogById" asp-route-id="@Model.ParrentCatalog.Id">
+            @Model.ParrentCatalog.Name
+        </a>
+    }
+
+    <h2>"Folder" - @Model.CurrentCatalog.Name</h2>
+    @if (@Model.ChildDirectories != null)
+    {
+        @foreach (var childDir in @Model.ChildDirectories)
+        {
+            <a asp-controller="Catalog" asp-action="GetCatalogById" asp-route-id="@childDir.Id">@childDir.Name</a>
+        }
+    }
+</div>
