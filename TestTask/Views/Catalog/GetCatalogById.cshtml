@@ -34,10 +34,10 @@
                 }
             </ul>
         }
-        <a asp-controller="Catalog"
-                asp-action="ExportFolderToJson"
-                asp-route-parrentId="@Model.ParrentCatalog.Id">
+        <a asp-controller="File"
+               asp-action="ExportFolderToJson"
+               asp-route-parrentId="@Model.CurrentCatalog.Id">
             export this folder to json
-        </a>
+            </a>
     </div>
 </div>

@@ -28,15 +28,31 @@ public class CatalogServices : ICatalogRepository
 
     public string SerializeCatalog(Catalog catalog)
     {
-        //TODO: complete serialize and return json for user
         string json = JsonConvert.SerializeObject(new
         {
             catalog.Id,
             catalog.Name,
             catalog.ParentId,
-            ChildCatalogs = catalog.ChildDirectoriesId.Select(c => SerializeCatalog(GetCatalogById(c)))
+            ChildCatalogs =  catalog.ChildDirectoriesId == null ? null : catalog.ChildDirectoriesId.Select(c => SerializeCatalog(GetCatalogById(c)))
         });
-        return json;
+        return json.Replace("\\", "")
+                   .Replace("\"{", "{")
+                   .Replace("}\"", "}");
+    }
+
+    public async Task<bool> CreateJsonFromString(Catalog catalog,string json)
+    {
+        string pathToFile = Path.Combine(Directory.GetCurrentDirectory(), "ExportedCatalogs", $"{catalog.Name.Replace(" ", "")}.json");
+        if (!System.IO.File.Exists(pathToFile))
+        {
+            using (StreamWriter writer = new StreamWriter(pathToFile))
+            {
+                writer.Write(json);
+            }
+            return true;
+        }
+
+        return false;
     }
 
     public Catalog GetCatalogById(string id)

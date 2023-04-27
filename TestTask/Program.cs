@@ -11,6 +11,7 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<AppDBContext>(option => option.UseNpgsql(
     builder.Configuration.GetConnectionString("DefaultConnection")));
 builder.Services.AddScoped<CatalogServices>();
+builder.Services.AddScoped<FileServices>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

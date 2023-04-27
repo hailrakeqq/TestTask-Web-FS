@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using TestTask.DTO;
 using TestTask.Models;
 using TestTask.Services;
@@ -8,9 +9,11 @@ namespace TestTask.Controllers
     public class CatalogController : Controller
     {
         private readonly CatalogServices _catalogServices;
-        public CatalogController(CatalogServices catalogServices)
+        private readonly FileServices _fileServices;
+        public CatalogController(CatalogServices catalogServices, FileServices fileServices)
         {
             _catalogServices = catalogServices;
+            _fileServices = fileServices;
         }
         
         public IActionResult Index()
@@ -40,12 +43,7 @@ namespace TestTask.Controllers
                 ParrentCatalog = _catalogServices.GetCatalogById(mainCatalog.ParentId)
             });
         }
-
-        public IActionResult ExportFolderToJson(string parrentId)
-        {
-            return Ok(_catalogServices.SerializeCatalog(_catalogServices.GetCatalogById(parrentId)));
-        }
-
+        
         public IActionResult CreateTest()
         {
             _catalogServices.CreateTest();

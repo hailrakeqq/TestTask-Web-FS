@@ -6,6 +6,7 @@
 
 <div class="text-left">
     <button>import folder from json</button>
+
     @foreach (var item in @Model)
     {
         <div class="item">
@@ -26,11 +27,11 @@
                     }
                 </ul>
             }
-             <a asp-controller="Catalog"
-                            asp-action="ExportFolderToJson"
-                            asp-route-parrentId="@item.CurrentCatalog.Id">
-                        export this folder to json
-                    </a>
+             <a asp-controller="File"
+                          asp-action="ExportFolderToJson"
+                          asp-route-parrentId="@item.CurrentCatalog.Id">
+                       export this folder to json
+                       </a>
         </div>
     }
 </div>
