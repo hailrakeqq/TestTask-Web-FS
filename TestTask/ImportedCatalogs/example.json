@@ -1,0 +1,51 @@
+{
+  "Id": "10",
+  "Name": "Test",
+  "ParentId": null,
+  "ChildCatalogs": [
+    {
+      "Id": "10.1",
+      "Name": "Resources",
+      "ParentId": "10",
+      "ChildCatalogs": [
+        {
+          "Id": "10.1.1",
+          "Name": "Primary Sources",
+          "ParentId": "10.1",
+          "ChildCatalogs": null
+        },
+        {
+          "Id": "10.1.2",
+          "Name": "Secondary Sources",
+          "ParentId": "10.1",
+          "ChildCatalogs": null
+        }
+      ]
+    },
+    {
+      "Id": "10.2",
+      "Name": "Evidence",
+      "ParentId": "10",
+      "ChildCatalogs": null
+    },
+    {
+      "Id": "10.3",
+      "Name": "Graphic Products",
+      "ParentId": "10",
+      "ChildCatalogs": [
+        {
+          "Id": "10.3.1",
+          "Name": "Process",
+          "ParentId": "10.3",
+          "ChildCatalogs": null
+        },
+        {
+          "Id": "10.3.2",
+          "Name": "Final Product",
+          "ParentId": "10.3",
+          "ChildCatalogs": null
+        }
+      ]
+    }
+  ]
+}
