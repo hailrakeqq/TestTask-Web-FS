@@ -27,7 +27,6 @@ namespace TestTask.Migrations
                         .HasColumnType("text");
 
                     b.Property<string[]>("ChildDirectoriesId")
-                        .IsRequired()
                         .HasColumnType("text[]");
 
                     b.Property<string>("Name")
@@ -35,7 +34,6 @@ namespace TestTask.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("ParentId")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.HasKey("Id");

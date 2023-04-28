@@ -15,9 +15,10 @@ namespace TestTask.Controllers
             _catalogServices = catalogServices;
             _fileServices = fileServices;
         }
-        
-        public IActionResult Index()
+
+        public async Task<IActionResult> Index()
         {
+            await _catalogServices.CreateInitialCatalogs();
             var catalogDTOFromToSend = new List<CatalogDTO>();
             var mainCatalogs = _catalogServices.GetParentCatalogs();
             
@@ -43,11 +44,11 @@ namespace TestTask.Controllers
                 ParrentCatalog = _catalogServices.GetCatalogById(mainCatalog.ParentId)
             });
         }
-        
-        public IActionResult CreateTest()
+
+        public async Task<IActionResult> AddCatalogToDb(Catalog catalog)
         {
-            _catalogServices.CreateTest();
-            return Ok("Catalog was added please check DB.");
+            var action = await _catalogServices.AddCatalogToDB(catalog);
+            return action ? Ok("Catalog was successfully added to DB.") : BadRequest();
         }
     }
 }

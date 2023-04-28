@@ -11,8 +11,8 @@ using TestTask;
 namespace TestTask.Migrations
 {
     [DbContext(typeof(AppDBContext))]
-    [Migration("20230426090246_Initial migration")]
-    partial class Initialmigration
+    [Migration("20230428091805_Updated migrations")]
+    partial class Updatedmigrations
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -30,7 +30,6 @@ namespace TestTask.Migrations
                         .HasColumnType("text");
 
                     b.Property<string[]>("ChildDirectoriesId")
-                        .IsRequired()
                         .HasColumnType("text[]");
 
                     b.Property<string>("Name")
@@ -38,7 +37,6 @@ namespace TestTask.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("ParentId")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.HasKey("Id");

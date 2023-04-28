@@ -2,4 +2,5 @@
 .vs/*
 TestTask/bin/*
 TestTask/obj/*
-TestTask/ExportedCatalogs/
+TestTask/ExportedCatalogs/*
+TestTask/ImportedCatalogs/*

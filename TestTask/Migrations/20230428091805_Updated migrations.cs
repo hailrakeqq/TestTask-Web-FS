@@ -5,7 +5,7 @@
 namespace TestTask.Migrations
 {
     /// <inheritdoc />
-    public partial class Initialmigration : Migration
+    public partial class Updatedmigrations : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

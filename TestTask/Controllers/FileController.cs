@@ -1,4 +1,6 @@
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using TestTask.Models;
 using TestTask.Services;
 
@@ -34,9 +36,20 @@ public class FileController : Controller
     }
     
     [HttpPost]
-    public ActionResult ImportCatalog([FromBody] Catalog catalog)
+    public async Task<IActionResult> ImportCatalog(IFormFile file)
     {
-        //TODO: Create import system
-        return Ok(catalog);
+        var result = await _fileServices.GetStringFromUploadedJson(file);
+        if (result != null)
+        {
+            ViewBag.JsonData = result;
+         
+            var catalogsJson = await _catalogServices.CreateCatalogCollectionFromJson(result);
+            var catalogs = _catalogServices.ConvertCatalogJSONToCatalogCollection(catalogsJson);
+            await _catalogServices.AddCatalogsToDB(catalogs);
+
+            return RedirectToAction("Index", "Catalog");
+        }
+        
+        return BadRequest("Please select a valid JSON file to upload.");
     }
 }

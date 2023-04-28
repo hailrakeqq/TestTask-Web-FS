@@ -2,12 +2,23 @@
 @{
     ViewData["Title"] = "Home Page";
 }
-
-
 <div class="text-left">
-    <button>import folder from json</button>
-
-    @foreach (var item in @Model)
+    <form asp-action="ImportCatalog" asp-controller="File" method="post" enctype = "multipart/form-data">
+        <div class="row mt-2">
+            <div class="col-12">
+                <label class="col-form-label">Select JSON File For Import Catalog</label>
+                <input type="file" name="file" class="form-control" />
+            </div>
+        </div>
+        
+        <div class="row mt-2">
+            <div class="col-12">
+                <button type="submit" class="btn btn-success">Upload File</button>
+            </div>
+        </div>
+    </form>
+    
+  @foreach (var item in @Model)
     {
         <div class="item">
             <h2>Folder - @item.CurrentCatalog.Name:</h2>

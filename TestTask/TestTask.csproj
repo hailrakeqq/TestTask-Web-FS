@@ -18,6 +18,11 @@
 
   <ItemGroup>
     <Folder Include="ExportedCatalogs\" />
+    <Folder Include="ImportedCatalogs\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="Views\File\ImportCatalog.cshtml" />
   </ItemGroup>
 
 </Project>
