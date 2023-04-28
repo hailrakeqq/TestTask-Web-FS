@@ -1,0 +1,46 @@
+{
+  "Id": "1",
+  "Name": "Creating Digital Images",
+  "ParentId": null,
+  "ChildCatalogs": [
+    {
+      "Id": "1.1",
+      "Name": "Resources",
+      "ParentId": "1",
+      "ChildCatalogs": [
+        {
+          "Id": "1.1.1",
+          "Name": "Primary Sources",
+          "ParentId": "1.1",
+          "ChildCatalogs": null
+        },
+        {
+          "Id": "1.1.2",
+          "Name": "Secondary Sources",
+          "ParentId": "1.1",
+          "ChildCatalogs": null
+        }
+      ]
+    },
+    { "Id": "1.2", "Name": "Evidence", "ParentId": "1", "ChildCatalogs": null },
+    {
+      "Id": "1.3",
+      "Name": "Graphic Products",
+      "ParentId": "1",
+      "ChildCatalogs": [
+        {
+          "Id": "1.3.1",
+          "Name": "Process",
+          "ParentId": "1.3",
+          "ChildCatalogs": null
+        },
+        {
+          "Id": "1.3.2",
+          "Name": "Final Product",
+          "ParentId": "1.3",
+          "ChildCatalogs": null
+        }
+      ]
+    }
+  ]
+}
